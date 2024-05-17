@@ -1,37 +1,15 @@
 <script setup>
 import { ref } from 'vue';
 
-const showTheme1 = ref(true);
-const showTheme2 = ref(false);
-const showTheme3 = ref(false);
-const showTheme4 = ref(false);
+const data = ['Tema1','Tema2','Tema3','Tema4'];
 
-function showInfo(index) {     //esta funcion sirve para hacer un switch que muestre  y guarde la caja donde va el texto
-    if (index == 1) {
-        showTheme1.value = true
-        showTheme2.value = false
-        showTheme3.value = false
-        showTheme4.value = false
-    }
-    if (index == 2) {
-        showTheme1.value = false
-        showTheme2.value = true
-        showTheme3.value = false
-        showTheme4.value = false
-    }
-    if (index == 3) {
-        showTheme1.value = false
-        showTheme2.value = false
-        showTheme3.value = true
-        showTheme4.value = false
-    }
-    if (index == 4) {
-        showTheme1.value = false
-        showTheme2.value = false
-        showTheme3.value = false
-        showTheme4.value = true
-    }
+const selectedIndex = ref(0);
+
+function showInfo(i) {     //esta funcion sirve para hacer un switch que muestre  y guarde la caja donde va el texto
+   selectedIndex.value = i;
 }
+
+
 
 </script>
 
@@ -39,55 +17,16 @@ function showInfo(index) {     //esta funcion sirve para hacer un switch que mue
     <!-- texto 1 -->
     <div class="bg-blue-500 p-1 max-w-60 mt-12 mx-auto rounded text-center font-bold">
 
-        <div class="bg-blue-400 rounded text-center font-bold">
+        <div v-for="(theme, i) in data" :key="i" class="bg-blue-400 rounded text-center font-bold">
 
-            <h1 @click="showInfo(1)"
-                class="hover:cursor-pointer bg-blue-300 text-white px-1  flex justify-between text-center">
-                Tema 1 <span class="cursor-pointer font-bold">{{ showTheme1 ? '-' : '+' }}</span>
-
-            </h1>
-
-            <div v-show="showTheme1" class="bg-blue-200 p-1 mt-1">Texto del tema 1
-            </div>
-        </div>
-
-        <!-- texto 2 -->
-        <div class="bg-blue-400 rounded text-center font-bold">
-
-            <h1 @click="showInfo(2)"
-                class="hover:cursor-pointer bg-blue-300 text-white px-1  flex justify-between text-center">
-                Tema 2 <span class="cursor-pointer font-bold">{{ showTheme2 ? '-' : '+' }}</span>
+            <h1 @click="showInfo(i)"
+                class=" hover:cursor-pointer bg-blue-300 text-white px-1  flex justify-between text-center" :class="{'bg-blue-600': selectedIndex == i}" > {{ theme }}
+                 <span class="cursor-pointer font-bold">{{ selectedIndex == i ? '-' : '+' }}</span>
 
             </h1>
 
-            <div v-show="showTheme2" class="bg-blue-200 p-1 mt-1">Texto del tema 2
+            <div v-show="selectedIndex == i" class="bg-blue-200 p-1 mt-1 font-bold">{{ theme }}
             </div>
         </div>
-
-        <!-- texto 3 -->
-        <div class="bg-blue-400 rounded text-center font-bold">
-
-            <h1 @click="showInfo(3)"
-                class="hover:cursor-pointer bg-blue-300 text-white px-1  flex justify-between text-center">
-                Tema 3 <span class="cursor-pointer font-bold">{{ showTheme3 ? '-' : '+' }}</span>
-
-            </h1>
-
-            <div v-show="showTheme3" class="bg-blue-200 p-1 mt-1">Texto del tema 3
-            </div>
-        </div>
-        <!-- texto 4 -->
-        <div class="bg-blue-400 rounded text-center font-bold">
-
-            <h1 @click="showInfo(4)"
-                class="hover:cursor-pointer bg-blue-300 text-white px-1  flex justify-between text-center">
-                Tema 4 <span class="cursor-pointer font-bold">{{ showTheme4 ? '-' : '+' }}</span>
-
-            </h1>
-
-            <div v-show="showTheme4" class="bg-blue-200 p-1 mt-1">Texto del tema 4
-            </div>
-        </div>
-
     </div>
 </template>
